@@ -35,7 +35,7 @@ export const GameFooter: React.FC = () => {
              rel="noopener noreferrer">
             🐙
           </a>
-          <a href="https://dev.to/andreagriffiths" 
+          <a href="https://dev.to/andreagriffiths11" 
              className="social-link" 
              aria-label="Follow on DEV"
              target="_blank"
