@@ -4,6 +4,14 @@ const nextConfig = {
   basePath: process.env.NODE_ENV === 'production' ? '/wecoded-game-new' : '',
   images: {
     unoptimized: true,
+  },
+  // Disable server API route to make static build work
+  rewrites: () => [],
+  // Ensure trailingSlash for proper routing on GitHub Pages
+  trailingSlash: true,
+  // Turn off image optimization that doesn't work with static export
+  images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
