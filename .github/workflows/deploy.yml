@@ -39,12 +39,7 @@ jobs:
           echo "Node version: $(node -v)"
           echo "NPM version: $(npm -v)"
           echo "Current directory: $(pwd)"
-          # Update package.json to include export if needed
-          if ! grep -q "next export" package.json; then
-            sed -i 's/"build": "next build"/"build": "next build \&\& next export"/g' package.json
-            echo "Updated package.json to include export command"
-            cat package.json
-          fi
+          # Run the build with output: 'export' in next.config.mjs
           npm run build
           echo "After build directory contents:"
           ls -la
@@ -53,15 +48,11 @@ jobs:
             touch ./out/.nojekyll
             echo "Created .nojekyll file in out directory"
           else
-            echo "out directory not found, creating it..."
-            mkdir -p ./out
-            touch ./out/.nojekyll
-            echo "Created out directory and .nojekyll file"
-            cp -r ./.next/* ./out/ 2>/dev/null || echo "Could not copy .next contents"
-            echo "<html><body><h1>WeCoded Game</h1><p>Site is being built...</p></body></html>" > ./out/index.html
+            echo "out directory not found, this is an error"
+            exit 1
           fi
       - name: List output directory
-        run: ls -la ./out || echo "out directory still not found"
+        run: ls -la ./out
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
