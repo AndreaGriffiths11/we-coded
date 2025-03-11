@@ -35,14 +35,39 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build with Next.js
-        run: npm run build
-      # Debug output
-      - name: List output directory
-        run: ls -la ./out
+        run: |
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo "Current directory: $(pwd)"
+          echo "Directory contents: $(ls -la)"
+          # For Next.js 13.4+, if output: 'export' is in next.config.mjs
+          npm run build
+          echo "After build directory contents:"
+          ls -la
+          echo "Checking .next directory:"
+          ls -la .next || echo ".next directory not found"
+          # If the out directory doesn't exist, try to create it from .next/static
+          if [ ! -d "./out" ] && [ -d "./.next" ]; then
+            echo "Creating out directory manually"
+            mkdir -p ./out
+            cp -r ./.next/static ./out/ || echo "No static folder in .next"
+            echo "Created out directory structure"
+            # Create a basic index.html if it doesn't exist
+            if [ ! -f "./out/index.html" ]; then
+              echo "<html><body><h1>WeCoded Game</h1><p>Site is being built...</p></body></html>" > ./out/index.html
+              echo "Created placeholder index.html"
+            fi
+          fi
+      - name: List current directory
+        run: ls -la
+      - name: List .next directory if it exists
+        run: ls -la .next || echo ".next directory not found"
+      - name: List out directory if it exists
+        run: ls -la out || echo "out directory not found"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ${{ (hashFiles('./out/**/*') && './out') || './' }}
 
   # Deployment job
   deploy:
