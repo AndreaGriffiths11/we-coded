@@ -22,7 +22,7 @@ export const HowToPlay: React.FC = () => {
           <div className={styles.card}>
             <h3 className={styles.cardTitle}>🎮 Mini-Game</h3>
             <ul className={styles.list}>
-              <li className={styles.listItem}>Click "Open MiniGame" to start playing</li>
+              <li className={styles.listItem}>Click &quot;Open MiniGame&quot; to start playing</li>
               <li className={styles.listItem}>Use Left/Right arrow keys to move</li>
               <li className={styles.listItem}>Avoid falling obstacles to score points</li>
               <li className={styles.listItem}>Challenge yourself to beat your high score!</li>

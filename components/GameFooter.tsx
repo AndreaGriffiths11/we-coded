@@ -10,14 +10,14 @@ export const GameFooter: React.FC = () => {
         <h2 className={styles.title}>🎮 About this game 🎉</h2>
         <p className={styles.subtitle}>
           Big props for being here! This is my entry for the DEV.to WeCoded Challenge 2025. 
-          It's Next.js-powered, GitHub Copilot assisted, and runs on pure cafecito vibes—because 
-          tech's better when we've got each other's backs.
+          It&apos;s Next.js-powered, GitHub Copilot assisted, and runs on pure cafecito vibes—because 
+          tech&apos;s better when we&apos;ve got each other&apos;s backs.
         </p>
         
         <div className={styles.badge}>
           <span className={styles.badgeLabel}>Challenge Submission</span>
           <p className={styles.badgeText}>
-            Gamifying the experience of reading diverse tech stories. Let's make tech more inclusive, one story at a time! 🚀
+            Gamifying the experience of reading diverse tech stories. Let&apos;s make tech more inclusive, one story at a time! 🚀
           </p>
         </div>
         
