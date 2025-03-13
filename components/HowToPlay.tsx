@@ -21,7 +21,7 @@ export const HowToPlay: React.FC = () => {
           <div className="instruction-card">
             <h3 className="instruction-title">🎮 Mini-Game</h3>
             <ul className="instruction-list">
-              <li>Click "Open MiniGame" to start playing</li>
+              <li>Click &quot;Open MiniGame&quot; to start playing</li>
               <li>Use Left/Right arrow keys to move</li>
               <li>Avoid falling obstacles to score points</li>
               <li>Challenge yourself to beat your high score!</li>
