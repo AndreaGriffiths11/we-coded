@@ -1,9 +1,25 @@
 'use client';
 
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const metadata = {
+  title: 'WeCoded Game - Celebrate Diversity in Tech',
+  description: 'An interactive game celebrating diversity in tech through stories and challenges',
+  icons: {
+    icon: '/wecoded.ico',
+  },
+};
 
 export default function RootLayout({
   children,
@@ -13,11 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/wecoded.ico" sizes="any" />
-        <title>WeCoded Game - Celebrate Diversity in Tech</title>
-        <meta name="description" content="An interactive game celebrating diversity in tech through stories and challenges" />
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href={metadata.icons.icon} sizes="any" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }

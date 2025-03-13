@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import styles from './GameStats.module.css';
 
 interface GameStatsProps {
   stats: {
@@ -13,30 +14,30 @@ interface GameStatsProps {
 
 export const GameStats: React.FC<GameStatsProps> = ({ stats }) => {
   return (
-    <div className="stats-section">
-      <h2 className="stats-title">WeCoded Stats - Level 2</h2>
-      <div className="stats-container">
-        <div className="stats-row">
-          <div className="stat-box">
-            <div className="stat-value" style={{ color: '#F5D76A' }}>{stats.storiesCount}</div>
-            <div className="stat-label">Stories Shared</div>
+    <div className={styles.section}>
+      <h2 className={styles.title}>WeCoded Stats - Level 2</h2>
+      <div className={styles.container}>
+        <div className={styles.statsRow}>
+          <div className={styles.statBox}>
+            <div className={styles.statValue}>{stats.storiesCount}</div>
+            <div className={styles.statLabel}>Stories Shared</div>
           </div>
           
-          <div className="stat-box">
-            <div className="stat-value" style={{ color: '#F5D76A' }}>{stats.authorsCount}</div>
-            <div className="stat-label">Authors</div>
+          <div className={styles.statBox}>
+            <div className={styles.statValue}>{stats.authorsCount}</div>
+            <div className={styles.statLabel}>Authors</div>
           </div>
           
-          <div className="stat-box">
-            <div className="stat-value" style={{ color: '#F5D76A' }}>{stats.countriesCount}</div>
-            <div className="stat-label">Countries</div>
+          <div className={styles.statBox}>
+            <div className={styles.statValue}>{stats.countriesCount}</div>
+            <div className={styles.statLabel}>Countries</div>
           </div>
         </div>
-        
-        <div className="stats-row center-stat">
-          <div className="stat-box">
-            <div className="stat-value" style={{ color: '#F5D76A' }}>{stats.yearsCount}</div>
-            <div className="stat-label">Years Strong</div>
+
+        <div className={`${styles.statsRow} ${styles.centerStats}`}>
+          <div className={styles.statBox}>
+            <div className={styles.statValue}>{stats.yearsCount}</div>
+            <div className={styles.statLabel}>Years Strong</div>
           </div>
         </div>
       </div>

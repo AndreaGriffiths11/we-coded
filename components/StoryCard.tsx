@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import type { DevArticle } from '../types';
+import styles from './StoryCard.module.css';
 
 interface StoryCardProps {
   story: DevArticle;
@@ -15,8 +16,8 @@ interface StoryCardProps {
 const StoryCard: React.FC<StoryCardProps> = ({ story, currentIndex, totalStories, onPrevious, onNext }) => {
   if (!story) {
     return (
-      <div className="story-card">
-        <div className="story-loading">
+      <div className={styles.card}>
+        <div className={styles.content}>
           <p>Loading story...</p>
         </div>
       </div>
@@ -24,20 +25,20 @@ const StoryCard: React.FC<StoryCardProps> = ({ story, currentIndex, totalStories
   }
 
   return (
-    <div className="story-card">
-      <div className="story-header">
+    <div className={styles.card}>
+      <div className={styles.header}>
         <a 
           href={story.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="story-title-link"
+          className={styles.titleLink}
         >
-          <h3 className="story-title">{story.title}</h3>
+          <h3 className={styles.title}>{story.title}</h3>
         </a>
-        <span className="story-xp">+100 XP</span>
+        <span className={styles.xp}>+100 XP</span>
       </div>
 
-      <div className="story-content">
+      <div className={styles.content}>
         <p>{story.description}</p>
       </div>
 
@@ -45,9 +46,9 @@ const StoryCard: React.FC<StoryCardProps> = ({ story, currentIndex, totalStories
         href={story.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="author-info"
+        className={styles.authorInfo}
       >
-        <div className="author-avatar">
+        <div className={styles.authorAvatar}>
           <Image 
             src={story.user.profile_image_90} 
             alt={`${story.user.name}'s profile picture`}
@@ -55,29 +56,29 @@ const StoryCard: React.FC<StoryCardProps> = ({ story, currentIndex, totalStories
             height={48}
             style={{
               objectFit: 'cover',
-              borderRadius: '0.375rem'
+              borderRadius: 'var(--border-radius-sm)'
             }}
           />
         </div>
-        <div className="author-details">
-          <span className="author-name">{story.user.name}</span>
-          <span className="author-username">@{story.user.username}</span>
+        <div className={styles.authorDetails}>
+          <span className={styles.authorName}>{story.user.name}</span>
+          <span className={styles.authorUsername}>@{story.user.username}</span>
         </div>
       </a>
 
-      <div className="story-progress">
+      <div className={styles.progress}>
         <div 
-          className="progress-bar" 
+          className={styles.progressBar} 
           style={{ width: `${((currentIndex + 1) / totalStories) * 100}%` }}
         />
       </div>
 
-      <div className="story-footer">
-        <div className="story-navigation">
-          <button onClick={onPrevious} className="nav-button">← Previous</button>
-          <button onClick={onNext} className="nav-button">Next →</button>
+      <div className={styles.footer}>
+        <div className={styles.navigation}>
+          <button onClick={onPrevious} className={styles.navButton}>← Previous</button>
+          <button onClick={onNext} className={styles.navButton}>Next →</button>
         </div>
-        <span className="story-power">🏆 Level {currentIndex + 1}/{totalStories}</span>
+        <span className={styles.power}>🏆 Level {currentIndex + 1}/{totalStories}</span>
       </div>
     </div>
   );

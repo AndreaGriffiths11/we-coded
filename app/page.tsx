@@ -5,7 +5,9 @@ import StoryCard from '../components/StoryCard';
 import { MiniGame } from '../components/MiniGame';
 import { GameFooter } from '../components/GameFooter';
 import { HowToPlay } from '../components/HowToPlay';
+import { GameHeader } from '../components/GameHeader';
 import useFetchStories from '../hooks/useFetchStories';
+import styles from './page.module.css';
 
 export default function Page() {
   const { stories, isLoading, error } = useFetchStories();
@@ -24,41 +26,35 @@ export default function Page() {
     }
   };
 
+  const toggleMiniGame = () => {
+    setShowMiniGame(prev => !prev);
+  };
+
   return (
-    <div className="game-world">
-      <header className="game-header">
-        <div className="background-effects">
-          <div className="grid-pattern"></div>
-        </div>
-        <div className="container">
-          <div className="header-content">
-            <h1 className="game-title">Celebrate in Code</h1>
-            <p className="game-subtitle">Welcome to WeCoded - Level Up Diversity in Tech</p>
-            <div className="button-group">
-              <a href="#about" className="game-button primary">How to Play</a>
-              <a href="#featured-story" className="game-button secondary">Game Info</a>
-              <button 
-                onClick={() => setShowMiniGame(!showMiniGame)} 
-                className="game-button tertiary"
-              >
-                {showMiniGame ? 'Close MiniGame' : 'Open MiniGame'}
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className={styles.main}>
+      <GameHeader 
+        title="WeCoded Game"
+        score={currentStoryIndex * 100}
+        showMiniGame={showMiniGame}
+        onToggleMiniGame={toggleMiniGame}
+      />
 
-      <HowToPlay />
+      <main className={styles.content}>
+        <HowToPlay />
 
-      <section id="featured-story" className="section">
-        <div className="section-container primary">
-          <h2 className="section-title">Featured Stories</h2>
+        {showMiniGame && (
+          <section className={styles.section}>
+            <MiniGame />
+          </section>
+        )}
+
+        <section id="featured-story" className={styles.featuredStory}>
           {isLoading ? (
-            <div className="loading-container">
+            <div className={styles.loadingContainer}>
               <p>Loading stories...</p>
             </div>
           ) : error ? (
-            <div className="error-container">
+            <div className={styles.errorContainer}>
               <p>{error}</p>
             </div>
           ) : (
@@ -70,10 +66,9 @@ export default function Page() {
               onNext={nextStory}
             />
           )}
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {showMiniGame && <MiniGame />}
       <GameFooter />
     </div>
   );

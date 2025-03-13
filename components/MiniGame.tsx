@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import styles from './MiniGame.module.css';
 
 interface Obstacle {
   id: number;
@@ -9,113 +10,113 @@ interface Obstacle {
 }
 
 export const MiniGame: React.FC = () => {
-  const [isActive, setIsActive] = useState(false);
   const [playerPosition, setPlayerPosition] = useState(50);
-  const [score, setScore] = useState(0);
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
-  const requestRef = useRef<number | undefined>(undefined);
-  const obstacleId = useRef(0);
+  const [score, setScore] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const [gameInterval, setGameInterval] = useState<NodeJS.Timer | null>(null);
+
+  const movePlayer = useCallback((direction: 'left' | 'right') => {
+    setPlayerPosition(prev => {
+      const newPos = direction === 'left' ? prev - 5 : prev + 5;
+      return Math.max(0, Math.min(100, newPos));
+    });
+  }, []);
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') movePlayer('left');
+    if (e.key === 'ArrowRight') movePlayer('right');
+  }, [movePlayer]);
 
   const startGame = () => {
-    if (!isActive) {
-      setIsActive(true);
-      setScore(0);
-      setObstacles([]);
-    }
-  };
-
-  // Handle keyboard controls
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (!isActive) return;
-
-      if (e.key === 'ArrowLeft') {
-        setPlayerPosition(prev => Math.max(0, prev - 5));
-      } else if (e.key === 'ArrowRight') {
-        setPlayerPosition(prev => Math.min(100, prev + 5));
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isActive]);
-
-  // Game loop
-  useEffect(() => {
-    if (!isActive) return;
-
-    const updateGame = () => {
-      // Randomly spawn new obstacles
-      if (Math.random() < 0.05) {
-        const newObstacle = {
-          id: obstacleId.current++,
-          left: Math.random() * 100,
-          top: -20
-        };
-        setObstacles(prev => [...prev, newObstacle]);
-      }
-
-      // Update obstacle positions and handle collisions
+    setIsActive(true);
+    setScore(0);
+    setObstacles([]);
+    const interval = setInterval(() => {
       setObstacles(prev => {
         const newObstacles = prev
-          .map(obstacle => ({
-            ...obstacle,
-            top: obstacle.top + 2
-          }))
-          .filter(obstacle => {
-            // Check for collisions
-            if (obstacle.top > 250 && obstacle.top < 280) {
-              if (Math.abs(obstacle.left - playerPosition) < 10) {
-                setIsActive(false);
-                return false;
-              }
-            }
-            // Remove obstacles that are off screen and increment score
-            if (obstacle.top > 300) {
-              setScore(s => s + 1);
-              return false;
-            }
-            return true;
+          .map(obs => ({ ...obs, top: obs.top + 5 }))
+          .filter(obs => obs.top < 400);
+
+        if (Math.random() < 0.1) {
+          newObstacles.push({
+            id: Date.now(),
+            left: Math.random() * 90,
+            top: -20
           });
+        }
+
         return newObstacles;
       });
+      setScore(prev => prev + 1);
+    }, 100);
+    setGameInterval(interval);
+  };
 
-      requestRef.current = requestAnimationFrame(updateGame);
-    };
+  useEffect(() => {
+    if (isActive) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isActive, handleKeyDown]);
 
-    requestRef.current = requestAnimationFrame(updateGame);
+  useEffect(() => {
     return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
-      }
+      if (gameInterval) clearInterval(gameInterval);
     };
-  }, [isActive, playerPosition]);
+  }, [gameInterval]);
+
+  useEffect(() => {
+    const collision = obstacles.some(obs => {
+      const playerRect = {
+        left: playerPosition - 2,
+        right: playerPosition + 2,
+        top: 360,
+        bottom: 380
+      };
+
+      const obsRect = {
+        left: obs.left - 1.5,
+        right: obs.left + 1.5,
+        top: obs.top - 1.5,
+        bottom: obs.top + 1.5
+      };
+
+      return !(playerRect.left > obsRect.right || 
+               playerRect.right < obsRect.left || 
+               playerRect.top > obsRect.bottom ||
+               playerRect.bottom < obsRect.top);
+    });
+
+    if (collision && isActive) {
+      setIsActive(false);
+      if (gameInterval) clearInterval(gameInterval);
+    }
+  }, [obstacles, playerPosition, isActive, gameInterval]);
 
   return (
-    <div 
-      className="mini-game"
-      tabIndex={0} 
-      onFocus={() => {}}
-      style={{ outline: 'none' }}
-    >
-      <div className="mini-game-player" style={{ left: `${playerPosition}%` }} />
+    <div className={styles.container}>
+      <div 
+        className={styles.player}
+        style={{ left: `${playerPosition}%` }}
+      />
       {obstacles.map(obstacle => (
         <div
           key={obstacle.id}
-          className="mini-game-obstacle"
+          className={styles.obstacle}
           style={{
             left: `${obstacle.left}%`,
             top: `${obstacle.top}px`
           }}
         />
       ))}
-      <div className="game-score">Score: {score}</div>
+      <div className={styles.score}>Score: {score}</div>
       {!isActive && (
-        <div className="game-start">
-          <button onClick={startGame} className="game-button primary">
+        <div className={styles.gameStart}>
+          <button onClick={startGame} className={styles.startButton}>
             Start Game
           </button>
-          <p className="game-instructions">
+          <p className={styles.instructions}>
             Use arrow keys to move the green circle left and right to dodge the falling red squares!
           </p>
         </div>
