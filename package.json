@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "node scripts/fetch-stories.js && next build",
+    "start": "npx serve@latest out",
+    "lint": "next lint",
+    "fetch-stories": "node scripts/fetch-stories.js"
   },
   "dependencies": {
     "next": "15.2.1",
+    "node-fetch": "^3.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

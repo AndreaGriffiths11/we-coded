@@ -6,9 +6,11 @@ export const GameFooter: React.FC = () => {
   return (
     <footer className="game-footer">
       <div className="container">
-        <h2 className="footer-title">🎮 Game Complete! 🎉</h2>
+        <h2 className="footer-title">🎮 About this game 🎉</h2>
         <p className="footer-subtitle">
-        Hey, you rock for playing!  I am Andrea, and I whipped up this game for the DEV.to WeCoded Challenge 2025. It’s built with Next.js, a ton of Next.js magic, and fueled by endless cafecito —because if we don’t support each other in tech, who will? Hope you had a blast!
+        Big props for being here! This is my entry for the DEV.to WeCoded Challenge 2025. It’s Next.js-powered, GitHub Copilot assisted, and runs on pure cafecito vibes—because tech’s better when we’ve got each other’s backs. 
+
+
 
 
         </p>
@@ -46,7 +48,7 @@ export const GameFooter: React.FC = () => {
         
         <p className="credits">
           Made with ❤️ and 🔥<br />
-          <span className="credit-detail">Using Next.js, TypeScript, and mucho amor</span>
+          <span className="credit-detail">Using my bestie GitHub Copilot, Next.js, TypeScript, and mucho amor</span>
         </p>
         
         <p className="copyright">

@@ -1,26 +1,9 @@
-import type { Metadata, Viewport } from "next";
-import { Inter } from 'next/font/google';
-import './globals.css'
+'use client';
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-});
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "WeCoded | Celebrate in Code",
-  description: "An interactive celebration of diversity in tech through code and stories",
-  authors: [{ name: "WeCoded Community" }],
-  keywords: ["diversity", "tech", "coding", "inclusion", "community"],
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1.0,
-  maximumScale: 1.0,
-  userScalable: false,
-  themeColor: "#1a1a3a"
-};
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -29,9 +12,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`app-body ${inter.className}`}>
-        {children}
-      </body>
+      <head>
+        <link rel="icon" href="/wecoded.ico" sizes="any" />
+        <title>WeCoded Game - Celebrate Diversity in Tech</title>
+        <meta name="description" content="An interactive game celebrating diversity in tech through stories and challenges" />
+      </head>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
