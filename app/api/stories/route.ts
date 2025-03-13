@@ -2,7 +2,6 @@
 // File kept for reference in case we need to implement API route in the future
 
 import { NextResponse } from 'next/server';
-import type { DevArticle } from '../../../types';
 
 export const dynamic = 'force-static';
 
