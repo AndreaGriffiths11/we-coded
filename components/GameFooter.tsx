@@ -22,7 +22,7 @@ export const GameFooter: React.FC = () => {
         </div>
         
         <div className={styles.socialLinks}>
-          <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20game%20celebrating%20diversity%20in%20tech!%20Join%20the%20WeCoded%20challenge%20%23WeCoded%20%23DevCommunity" 
+          <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20game%20celebrating%20diversity%20in%20tech!%20Join%20the%20WeCoded%20challenge%20%23WeCoded%20%23DevCommunity%20%23https://gh.io/wecoded" 
              className={styles.socialLink} 
              aria-label="Share on Twitter"
              target="_blank"
