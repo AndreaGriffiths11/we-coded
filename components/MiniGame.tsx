@@ -14,7 +14,7 @@ export const MiniGame: React.FC = () => {
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
   const [score, setScore] = useState(0);
   const [isActive, setIsActive] = useState(false);
-  const [gameInterval, setGameInterval] = useState<NodeJS.Timer | null>(null);
+  const [gameInterval, setGameInterval] = useState<ReturnType<typeof setInterval> | null>(null);
 
   const movePlayer = useCallback((direction: 'left' | 'right') => {
     setPlayerPosition(prev => {
