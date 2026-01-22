@@ -36,7 +36,7 @@ echo ""
 # Function to extract title from frontmatter
 get_title() {
     local file=$1
-    grep "^title:" "$file" | sed 's/title: //' | tr -d "'"
+    grep "^title:" "$file" | sed 's/title: //' | sed "s/^['\"]//;s/['\"]$//"
 }
 
 # Function to extract labels from frontmatter
@@ -56,8 +56,8 @@ create_issue() {
     local title=$(get_title "$file")
     local labels=$(get_labels "$file")
     
-    # Remove frontmatter for body (everything between --- markers)
-    local body=$(sed '1,/^---$/d' "$file" | sed '1,/^---$/d')
+    # Remove frontmatter for body (everything after second --- marker)
+    local body=$(awk 'BEGIN{p=0} /^---$/{p++; next} p>=2' "$file")
     
     if [ -z "$title" ]; then
         echo -e "${RED}  ✗ Could not extract title from $file${NC}"

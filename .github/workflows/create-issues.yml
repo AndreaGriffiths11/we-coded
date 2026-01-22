@@ -1,0 +1,73 @@
+name: Create GitHub Issues from Templates
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "create" to confirm issue creation'
+        required: true
+        default: ''
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm == 'create'
+    permissions:
+      contents: read
+      issues: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Create issues from templates
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd .github/ISSUES
+          
+          # Function to extract title from frontmatter
+          get_title() {
+              grep "^title:" "$1" | sed 's/title: //' | sed "s/^['\"]//;s/['\"]$//"
+          }
+          
+          # Function to extract labels from frontmatter
+          get_labels() {
+              grep "^labels:" "$1" | sed 's/labels: //'
+          }
+          
+          # Function to extract body (remove frontmatter)
+          get_body() {
+              awk 'BEGIN{p=0} /^---$/{p++; next} p>=2' "$1"
+          }
+          
+          # Get all issue files sorted by number
+          for file in $(ls -1 [0-9][0-9]-*.md | sort); do
+              echo "Processing $file..."
+              
+              title=$(get_title "$file")
+              labels=$(get_labels "$file")
+              body=$(get_body "$file")
+              
+              if [ -z "$title" ]; then
+                  echo "Error: Could not extract title from $file"
+                  continue
+              fi
+              
+              echo "Creating issue: $title"
+              echo "Labels: $labels"
+              
+              # Create the issue
+              echo "$body" | gh issue create \
+                --title "$title" \
+                --body-file - \
+                --label "$labels"
+              
+              echo "✓ Issue created successfully"
+              echo ""
+              
+              # Small delay to avoid rate limiting
+              sleep 1
+          done
+          
+          echo "All issues created successfully!"

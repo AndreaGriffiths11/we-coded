@@ -4,6 +4,29 @@ This repository contains 20 detailed improvement issue templates in the `.github
 
 ## Quick Start
 
+## Method 1: GitHub Actions Workflow (Recommended for Maintainers)
+
+The easiest way to create all issues at once using automation:
+
+1. Go to the **Actions** tab in your GitHub repository
+2. Select **"Create GitHub Issues from Templates"** workflow from the left sidebar
+3. Click **"Run workflow"** button (top right)
+4. Type `create` in the confirmation field to confirm
+5. Click the green **"Run workflow"** button
+
+**What happens:**
+- ✅ Automatically creates all 20 issues with proper formatting
+- ✅ Applies correct titles and labels from frontmatter
+- ✅ Maintains proper ordering (01-20)
+- ✅ No local setup required
+- ✅ Uses GitHub's built-in authentication
+
+**Note:** This workflow requires write permissions to create issues. If you're a repository maintainer, this is the recommended approach.
+
+---
+
+## Method 2: Automated Script (Local Development)
+
 ### Prerequisites
 
 1. **GitHub CLI** installed and authenticated
@@ -22,7 +45,7 @@ This repository contains 20 detailed improvement issue templates in the `.github
    cd .github/ISSUES
    ```
 
-## Method 1: Automated Script (Recommended)
+### Running the Script
 
 Run the provided script to create all 20 issues automatically:
 
@@ -63,7 +86,7 @@ Creating issue from: 01-unit-tests-useFetchStories.md
 ================================================
 ```
 
-## Method 2: Manual Creation (One at a Time)
+## Method 3: Manual Creation (One at a Time)
 
 If you prefer to create issues individually or selectively:
 
@@ -106,7 +129,7 @@ gh issue create --title "Implement comprehensive accessibility audit fixes" \
   --label "accessibility,a11y,enhancement,bug"
 ```
 
-## Method 3: Via GitHub Web Interface
+## Method 4: Via GitHub Web Interface
 
 If you can't use GitHub CLI:
 
