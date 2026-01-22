@@ -98,11 +98,21 @@ npm run build
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch
-3. Follow our development guidelines
-4. Ensure tests pass
-5. Submit a pull request
+We have 20 pre-written improvement issues ready to be created! See [ISSUE_CREATION_GUIDE.md](./ISSUE_CREATION_GUIDE.md) for how to create them.
+
+**Quick Start for Maintainers:**
+1. Go to the [Actions tab](../../actions)
+2. Run the "Create GitHub Issues from Templates" workflow
+3. Type `create` to confirm
+
+After issues are created:
+1. Pick an issue that matches your skills
+2. Comment to express interest
+3. Fork the repository
+4. Create your feature branch
+5. Follow our development guidelines
+6. Ensure tests pass
+7. Submit a pull request
 
 ## 📄 License
 
