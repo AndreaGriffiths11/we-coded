@@ -35,7 +35,7 @@ jobs:
           
           # Function to extract body (remove frontmatter)
           get_body() {
-              sed '1,/^---$/d' "$1" | sed '1,/^---$/d'
+              awk 'BEGIN{p=0} /^---$/{p++; next} p>=2' "$1"
           }
           
           # Get all issue files sorted by number
