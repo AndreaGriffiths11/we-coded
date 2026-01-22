@@ -40,17 +40,19 @@ This directory contains 20 improvement proposals for the WeCoded project, organi
 
 ## 🚀 Creating Issues on GitHub
 
-### Option 1: Manual Creation
+### Option 1: GitHub Actions (Recommended for Maintainers)
 
-1. Navigate to the GitHub repository
-2. Click on "Issues" → "New Issue"
-3. Copy the content from each `.md` file
-4. Paste into the issue body
-5. Extract the `title` from the frontmatter
-6. Add `labels` from the frontmatter
-7. Create the issue
+The easiest way to create all issues at once:
 
-### Option 2: Using GitHub CLI (Recommended)
+1. Go to the **Actions** tab in the GitHub repository
+2. Select **"Create GitHub Issues from Templates"** workflow
+3. Click **"Run workflow"**
+4. Type `create` in the confirmation field
+5. Click **"Run workflow"** button
+
+This will automatically create all 20 issues with proper titles, labels, and content.
+
+### Option 2: Using GitHub CLI (Local Development)
 
 If you have GitHub CLI installed and authenticated, run:
 
@@ -76,6 +78,16 @@ gh issue create \
   --body-file 01-unit-tests-useFetchStories.md \
   --label "testing,enhancement,good-first-issue"
 ```
+
+### Option 4: Manual Creation
+
+1. Navigate to the GitHub repository
+2. Click on "Issues" → "New Issue"
+3. Copy the content from each `.md` file
+4. Paste into the issue body
+5. Extract the `title` from the frontmatter
+6. Add `labels` from the frontmatter
+7. Create the issue
 
 ## 📝 Issue Format
 
