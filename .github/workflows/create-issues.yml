@@ -25,7 +25,7 @@ jobs:
           
           # Function to extract title from frontmatter
           get_title() {
-              grep "^title:" "$1" | sed 's/title: //' | tr -d "'"
+              grep "^title:" "$1" | sed 's/title: //' | sed "s/^['\"]//;s/['\"]$//"
           }
           
           # Function to extract labels from frontmatter

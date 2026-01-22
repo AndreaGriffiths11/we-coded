@@ -36,7 +36,7 @@ echo ""
 # Function to extract title from frontmatter
 get_title() {
     local file=$1
-    grep "^title:" "$file" | sed 's/title: //' | tr -d "'"
+    grep "^title:" "$file" | sed 's/title: //' | sed "s/^['\"]//;s/['\"]$//"
 }
 
 # Function to extract labels from frontmatter

@@ -36,4 +36,4 @@ The workflow will create 20 issues covering:
 - 🏗️ Architecture (2 issues)
 - 📚 Documentation (2 issues)
 
-For a detailed summary, see [.github/ISSUES/SUMMARY.md](.github/ISSUES/SUMMARY.md)
+For a detailed summary, see [SUMMARY.md](./SUMMARY.md)
