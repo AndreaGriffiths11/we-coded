@@ -12,6 +12,9 @@ jobs:
   create-issues:
     runs-on: ubuntu-latest
     if: github.event.inputs.confirm == 'create'
+    permissions:
+      contents: read
+      issues: write
     
     steps:
       - name: Checkout repository
