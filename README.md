@@ -74,6 +74,15 @@ Run the test suite:
 npm test
 ```
 
+Additional commands:
+```bash
+# Watch mode
+npm test -- --watch
+
+# Coverage report
+npm test -- --coverage
+```
+
 We use:
 - Jest for unit testing
 - React Testing Library for component testing
